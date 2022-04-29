@@ -1,43 +1,48 @@
-import { useState} from 'react'
-import { FiSearch} from 'react-icons/fi'
-import './styles.css'
+import { useState } from "react";
+import { FiSearch } from "react-icons/fi";
+import "./styles.css";
 
-import api from './services/api'
+import api from "./services/api";
 
 function App() {
-
-    const [input, setInput] = useState('')
+    const [input, setInput] = useState("");
     const [cep, setCep] = useState({});
 
-    async function handleSearch(){
-        if (input == ''){
-            alert('Insira um CEP')
+    async function handleSearch() {
+        if (input === "") {
+            alert("Insira um CEP");
             return;
         }
 
-        try{
-            const response = await api.get(`${input}/json`)
-            setCep(response.data)
-            setInput("")
+        try {
+            const response = await api.get(`${input}/json`);
+            setCep(response.data);
+            setInput("");
         } catch {
-            alert('Ops erro ao buscar')
-            setInput("")
+            alert("Ops erro ao buscar");
+            setInput("");
         }
     }
 
     return (
         <div className="container">
             <div className="card">
-
-                <h1 className="title">
-                    Buscador CEP
-                </h1>
+                <h1 className="title">Buscador de CEP</h1>
 
                 <div className="containerInput">
-                    <input type="text" placeholder="Digite seu cep" value={input} onChange={(e) => setInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSearch()} maxLength="9"/>
+                    <input
+                        type="text"
+                        placeholder="Digite seu cep"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyPress={(e) => e.key === "Enter" && handleSearch()}
+                        maxLength="9"
+                    />
 
                     <button className="buttomSearch" onClick={handleSearch}>
-                        <FiSearch size={20} color="#44475a"/>
+                        <FiSearch size={20} 
+                        color="#44475a" 
+                        />
                     </button>
                 </div>
             </div>
@@ -46,14 +51,13 @@ function App() {
                 <main className="main">
                     <h2>CEP {cep.cep}</h2>
 
-                    <p>{cep.logradouro}</p>
-                    <p>{cep.complemento}</p>
-                    <p>{cep.bairro}</p>
-                    <p>{cep.uf}</p>
-                    <p>{cep.ddd}</p>
+                    <p><strong>Endereço: </strong> {cep.logradouro}</p>
+                    <p><strong>Complemento: </strong>{cep.complemento}</p>
+                    <p><strong>Bairro: </strong>{cep.bairro}</p>
+                    <p><strong>Estado: </strong>{cep.uf}</p>
+                    <p><strong>DDD: </strong>{cep.ddd}</p>
                 </main>
             )}
-
         </div>
     );
 }
