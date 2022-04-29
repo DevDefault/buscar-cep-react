@@ -34,7 +34,7 @@ function App() {
                 </h1>
 
                 <div className="containerInput">
-                    <input type="text" placeholder="Digite seu cep" value={input} onChange={(e) => setInput(e.target.value)} maxLength="9"/>
+                    <input type="text" placeholder="Digite seu cep" value={input} onChange={(e) => setInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSearch()} maxLength="9"/>
 
                     <button className="buttomSearch" onClick={handleSearch}>
                         <FiSearch size={20} color="#44475a"/>
@@ -44,7 +44,7 @@ function App() {
 
             {Object.keys(cep).length > 0 && (
                 <main className="main">
-                    <h2>{cep.cep}</h2>
+                    <h2>CEP {cep.cep}</h2>
 
                     <p>{cep.logradouro}</p>
                     <p>{cep.complemento}</p>
