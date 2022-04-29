@@ -1,0 +1,97 @@
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #282a36;
+    color: #ff79c6;
+}
+
+.title {
+    animation: flipTitle 2s;
+    font-size: 50px;
+}
+
+.card {
+    text-align: center;
+    background-color: #44475a;
+    border-radius: 10px;
+    padding: 40px;
+}
+
+.containerInput {
+    margin-top: 20px;
+}
+
+.containerInput input {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    outline: none;
+}
+
+.buttomSearch {
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 20px;
+    background-color: #ff79c6;
+    transition: transform 0.5s;
+}
+
+.buttomSearch:hover {
+    transform: scale(1.2);
+}
+
+.main {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #50fa7b;
+    line-height: 20px;
+    color: #44475a;
+    width: 500px;
+}
+
+.main h2 {
+    margin-bottom: 10px;
+}
+
+@keyframes flipTitle {
+    from {
+        transform: rotateX(90deg);
+    }
+    to {
+        transform: rotateX(0deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .title {
+        font-size: 30px;
+    }
+    .card {
+        width: 400px;
+    }
+    .main {
+        width: 400px;
+    }
+}
+
+@media (max-width: 500px) {
+    .title {
+        font-size: 30px;
+    }
+    .main {
+        width: 300px;
+    }
+    .card {
+        width: 300px;
+    }
+    .card input {
+        width: 200px;
+    }
+}

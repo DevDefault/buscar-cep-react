@@ -1,25 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState} from 'react'
+import { FiSearch} from 'react-icons/fi'
+import './styles.css'
+
+import api from './services/api'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [input, setInput] = useState('')
+    const [cep, setCep] = useState({});
+
+    async function handleSearch(){
+        if (input == ''){
+            alert('Insira um CEP')
+            return;
+        }
+
+        try{
+            const response = await api.get(`${input}/json`)
+            setCep(response.data)
+            setInput("")
+        } catch {
+            alert('Ops erro ao buscar')
+            setInput("")
+        }
+    }
+
+    return (
+        <div className="container">
+            <div className="card">
+
+                <h1 className="title">
+                    Buscador CEP
+                </h1>
+
+                <div className="containerInput">
+                    <input type="text" placeholder="Digite seu cep" value={input} onChange={(e) => setInput(e.target.value)} maxLength="9"/>
+
+                    <button className="buttomSearch" onClick={handleSearch}>
+                        <FiSearch size={20} color="#44475a"/>
+                    </button>
+                </div>
+            </div>
+
+            {Object.keys(cep).length > 0 && (
+                <main className="main">
+                    <h2>{cep.cep}</h2>
+
+                    <p>{cep.logradouro}</p>
+                    <p>{cep.complemento}</p>
+                    <p>{cep.bairro}</p>
+                    <p>{cep.uf}</p>
+                    <p>{cep.ddd}</p>
+                </main>
+            )}
+
+        </div>
+    );
 }
 
 export default App;
